@@ -3,7 +3,7 @@ const { SmartAPI, WebSocket, WebSocketV2 } = require("smartapi-javascript"); // 
 const API_KEY = "W0IKOUZO "; // Replace with your Smart API key
 const CLIENT_CODE = "B60364780"; // Replace with your Angel One client code
 const PASSWORD = "2504"; // Replace with your account password
-const TOTP = "057823"; // Replace with your TOTP from authenticator
+const TOTP = "716225"; // Replace with your TOTP from authenticator
 // Function to get live Silver INR prices
 async function getSilverPrice() {
   let smart_api = new SmartAPI({
@@ -16,11 +16,12 @@ async function getSilverPrice() {
       TOTP
     );
     const jwtToken = sessionData.data.jwtToken;
+    // console.log("TEst HErer==++>", smart_api)
     let web_socket = new WebSocketV2({
       jwttoken: jwtToken,
       apikey: API_KEY,
       clientcode: CLIENT_CODE,
-      feedtype: 'order_feed',
+      feedtype: sessionData.data.feedToken,
     });
     web_socket.customError();
     // web_socket.reconnection(reconnectType, delayTime, multiplier);
@@ -29,8 +30,8 @@ async function getSilverPrice() {
         correlationID: "abcde12345",
         action: 1,
         mode: 1,
-        exchangeType: 1,
-        tokens: ["1594"],
+        exchangeType: 5,
+        tokens: ["435197"],
       };
       web_socket.fetchData(json_req);
       web_socket.on("tick", receiveTick);
