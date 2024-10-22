@@ -1,15 +1,11 @@
-let {
-  SmartAPI,
-  WebSocketClient,
-  WebSocketV2,
-  WSOrderUpdates,
-} = require("../lib");
+
+let { SmartAPI, WebSocketClient, WebSocketV2, WSOrderUpdates } = require('../lib');
 
 let smart_api = new SmartAPI({
-  api_key: "smartapi_key", // PROVIDE YOUR API KEY HERE
-  // OPTIONAL : If user has valid access token and refresh token then it can be directly passed to the constructor
-  // access_token: "YOUR_ACCESS_TOKEN",
-  // refresh_token: "YOUR_REFRESH_TOKEN"
+	api_key: 'smartapi_key', // PROVIDE YOUR API KEY HERE
+	// OPTIONAL : If user has valid access token and refresh token then it can be directly passed to the constructor
+	// access_token: "YOUR_ACCESS_TOKEN",
+	// refresh_token: "YOUR_REFRESH_TOKEN"
 });
 
 // // If user does not have valid access token and refresh token then use generateSession method
@@ -65,9 +61,9 @@ let smart_api = new SmartAPI({
 
 // 		// 	// return smart_api.getOrderBook();
 
-// smart_api.getOrderBook().then((data)=>{
-// 	console.log(data);
-// })
+				// smart_api.getOrderBook().then((data)=>{
+				// 	console.log(data);
+				// })
 
 // 		// 	// return smart_api.getTradeBook();
 
@@ -129,129 +125,129 @@ let smart_api = new SmartAPI({
 // 		// 	//     "todate": "2021-02-10 09:20"
 // 		// 	// })
 
-// Market Data Methods
-// smart_api.marketData({
-// 			"mode": "FULL",
-// 			"exchangeTokens": {
-// 				"NSE": [
-// 					"3045"
-// 				]
-// 			}
-// 		}).then((data) => {
-// 			console.log(JSON.stringify(data, null, 2));
-// 	        //  console.log(JSON.stringify(data))
-// 		});
 
-// search Scrip Methods
-smart_api
-  .searchScrip({
-    exchange: "BSE",
-    searchscrip: "Titan",
-  })
-  .then((data) => {
-    console.log(data);
-  });
+		// Market Data Methods
+		// smart_api.marketData({
+ 		// 			"mode": "FULL",
+ 		// 			"exchangeTokens": {
+ 		// 				"NSE": [
+ 		// 					"3045"
+ 		// 				]
+ 		// 			}
+		// 		}).then((data) => {
+		// 			console.log(JSON.stringify(data, null, 2));
+		// 	        //  console.log(JSON.stringify(data))
+   		// 		});
 
-// get all holding method
-// smart_api.getAllHolding().then((data)=>{
-// 	console.log(data);
-// })
+		// search Scrip Methods
+		smart_api.searchScrip({
+					"exchange": "BSE", 
+					"searchscrip":"Titan"
+				}).then((data)=>{
+					console.log(data);
+				})
 
-// get individual order details
-// smart_api.indOrderDetails("GuiOrderID").then((data) => {
-//   console.log(data);
-// });
+		// get all holding method
+		// smart_api.getAllHolding().then((data)=>{
+		// 	console.log(data);
+		// })
 
-// // margin api Method
-// smart_api
-// .marginApi({
-//   positions: [
-//     {
-//       exchange: "NFO",
-//       qty: 1500,
-//       price: 0,
-//       productType: "CARRYFORWARD",
-//       token: "154388",
-//       tradeType: "SELL",
-//     }
-//   ],
-// })
-// .then((data) => {
-//   console.log(data);
-// });
+    // get individual order details
+    // smart_api.indOrderDetails("GuiOrderID").then((data) => {
+    //   console.log(data);
+    // });
 
-//brokerage calculator
-// return smart_api.estimateCharges({
-// 	"orders": [
-// 		{
-// 			"product_type": "DELIVERY",
-// 			"transaction_type": "BUY",
-// 			"quantity": "10",
-// 			"price": "800",
-// 			"exchange": "NSE",
-// 			"symbol_name": "745AS33",
-// 			"token": "17117"
-// 		}, {
-// 			"product_type": "DELIVERY",
-// 			"transaction_type": "BUY",
-// 			"quantity": "10",
-// 			"price": "800",
-// 			"exchange": "BSE",
-// 			"symbol_name": "PIICL151223",
-// 			"token": "726131"
-// 		}
-// 	]
-// }).then(data=>{
-// 	console.log(data)
-// });
+	// // margin api Method
+	// smart_api
+    // .marginApi({
+    //   positions: [
+    //     {
+    //       exchange: "NFO",
+    //       qty: 1500,
+    //       price: 0,
+    //       productType: "CARRYFORWARD",
+    //       token: "154388",
+    //       tradeType: "SELL",
+    //     }
+    //   ],
+    // })
+    // .then((data) => {
+    //   console.log(data);
+    // });
 
-//verifydis
-// return smart_api.verifyDis({
-// 	"isin":"INE528G01035",
-// 	"quantity":"1"
-// }).then(data => {
-// 	console.log(data)
-// });
+	//brokerage calculator
+	// return smart_api.estimateCharges({
+	// 	"orders": [
+	// 		{
+	// 			"product_type": "DELIVERY",
+	// 			"transaction_type": "BUY",
+	// 			"quantity": "10",
+	// 			"price": "800",
+	// 			"exchange": "NSE",
+	// 			"symbol_name": "745AS33",
+	// 			"token": "17117"
+	// 		}, {
+	// 			"product_type": "DELIVERY",
+	// 			"transaction_type": "BUY",
+	// 			"quantity": "10",
+	// 			"price": "800",
+	// 			"exchange": "BSE",
+	// 			"symbol_name": "PIICL151223",
+	// 			"token": "726131"
+	// 		}
+	// 	]
+	// }).then(data=>{
+	// 	console.log(data)
+	// });
 
-// return smart_api.generateTPIN({
-// 	"dpId":"33200",
-// 	"ReqId":"2351614738654050",
-// 	"boid":"1203320018563571",
-// 	"pan":"JZTPS2255C"
-// }).then(data => {
-// 	console.log(data)
-// });
-//getTransactionStatus
-// return smart_api.getTranStatus({
-// 	"ReqId":"2351614738654050"
-// }).then(data => {
-// 	console.log(data)
-// });
+	//verifydis
+	// return smart_api.verifyDis({
+	// 	"isin":"INE528G01035",
+	// 	"quantity":"1"
+	// }).then(data => {
+	// 	console.log(data)
+	// });
 
-// return smart_api.optionGreek({
-// 	"name":"TCS", // Here Name represents the Underlying stock
-// 	"expirydate":"25JAN2024"
-// }).then(data => {
-// 	console.log(data)
-// });
+	// return smart_api.generateTPIN({
+	// 	"dpId":"33200",
+	// 	"ReqId":"2351614738654050",
+	// 	"boid":"1203320018563571",
+	// 	"pan":"JZTPS2255C"
+	// }).then(data => {
+	// 	console.log(data)
+	// });
+	//getTransactionStatus
+	// return smart_api.getTranStatus({
+	// 	"ReqId":"2351614738654050"
+	// }).then(data => {
+	// 	console.log(data)
+	// });
 
-// return smart_api.gainersLosers({
-// 	"datatype":"PercOIGainers", // Type of Data you want(PercOILosers/PercOIGainers/PercPriceGainers/PercPriceLosers)
-// 	"expirytype":"NEAR" // Expiry Type (NEAR/NEXT/FAR)
-// }).then(data => {
-// 	console.log(data)
-// });
+	// return smart_api.optionGreek({
+	// 	"name":"TCS", // Here Name represents the Underlying stock
+	// 	"expirydate":"25JAN2024"
+	// }).then(data => {
+	// 	console.log(data)
+	// });
+	
+	// return smart_api.gainersLosers({
+	// 	"datatype":"PercOIGainers", // Type of Data you want(PercOILosers/PercOIGainers/PercPriceGainers/PercPriceLosers)
+	// 	"expirytype":"NEAR" // Expiry Type (NEAR/NEXT/FAR)
+	// }).then(data => {
+	// 	console.log(data)
+	// });
 
-// return smart_api.putCallRatio().then(data => {
-// 	console.log(data)
-// });
+	// return smart_api.putCallRatio().then(data => {
+	// 	console.log(data)
+	// });
+	
+	// return smart_api.oIBuildup({
+	// 	"expirytype":"NEAR",
+	// 	"datatype":"Long Built Up"
+	// }).then(data => {
+	// 	console.log(data)
+	// });																																															
 
-// return smart_api.oIBuildup({
-// 	"expirytype":"NEAR",
-// 	"datatype":"Long Built Up"
-// }).then(data => {
-// 	console.log(data)
-// });
 
 // })
 // .then((data) => {
@@ -331,7 +327,7 @@ smart_api
 // 	feedtype: 'FEED_TYPE',
 // });
 
-// //For handling custom error
+// //For handling custom error 
 // web_socket.customError();
 
 // // handle reconnection
@@ -357,7 +353,7 @@ smart_api
 // 	// setTimeout(() => {
 // 	// 	web_socket.close();
 // 	// }, 2000);
-
+	
 // }).catch((err) => {
 // 	console.log('Custom error :', err.message);
 // });
@@ -382,6 +378,6 @@ smart_api
 // 	// setTimeout(() => {
 // 	// 	ws_clientupdate.close();
 // 	// }, 10000);
-
+	
 // })
 // ########################### Socket Client updates Sample Code End Here ###########################
