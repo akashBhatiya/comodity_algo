@@ -1,2 +1,0 @@
-const CLIENT_CODE = "B60364780";
-const PASSWORD = "2504";

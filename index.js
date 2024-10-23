@@ -1,53 +1,50 @@
-const { SmartAPI, WebSocket, WebSocketV2 } = require("smartapi-javascript"); // Import SmartAPI and WebSocket
-// Your credentials
-const API_KEY = "W0IKOUZO "; // Replace with your Smart API key
-const CLIENT_CODE = "B60364780"; // Replace with your Angel One client code
-const PASSWORD = "2504"; // Replace with your account password
-const TOTP = "716225"; // Replace with your TOTP from authenticator
-// Function to get live Silver INR prices
-async function getSilverPrice() {
-  let smart_api = new SmartAPI({
-    api_key: API_KEY,
-  });
-  try {
-    let sessionData = await smart_api.generateSession(
-      CLIENT_CODE,
-      PASSWORD,
-      TOTP
-    );
-    const jwtToken = sessionData.data.jwtToken;
-    // console.log("TEst HErer==++>", smart_api)
-    let web_socket = new WebSocketV2({
-      jwttoken: jwtToken,
-      apikey: API_KEY,
-      clientcode: CLIENT_CODE,
-      feedtype: sessionData.data.feedToken,
-    });
-    web_socket.customError();
-    // web_socket.reconnection(reconnectType, delayTime, multiplier);
-    web_socket.connect().then(() => {
-      let json_req = {
-        correlationID: "abcde12345",
-        action: 1,
-        mode: 1,
-        exchangeType: 5,
-        tokens: ["435197"],
-      };
-      web_socket.fetchData(json_req);
-      web_socket.on("tick", receiveTick);
-      function receiveTick(data) {
-        console.log("receiveTick:::::", data);
-      }
-    }).catch((err) => {
-      console.log('Custom error :', err);
-    });
-    console.log("Subscribed to Silver INR live data");
-  } catch (error) {
-    console.error(
-      "Error",
-      error
-    );
-  }
-}
-// Run the function
-getSilverPrice();
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+
+dotenv.config();
+
+const corsOptions = {
+	origin: process.env.CORS_ORIGIN,
+	methods: '*',
+	credentials: true,
+};
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+	cors: corsOptions
+});
+app.use(cors(corsOptions));
+
+app.use(bodyParser.json());
+app.use(express.json());
+
+
+
+
+
+io.on('connection', (socket) => {
+	console.log('A user connected:', socket.id);
+
+	socket.on('message', (data) => {
+		console.log('Message received:', data);
+		io.emit('message', data);
+	});
+
+	socket.on('disconnect', () => {
+		console.log('User disconnected:', socket.id);
+	});
+});
+
+app.get('/', (req, res) => {
+	res.send('Hello, ES6 with Express!');
+});
+
+httpServer.listen(PORT, () => {
+	console.log(`Server is running on http://localhost:${PORT}`);
+});
